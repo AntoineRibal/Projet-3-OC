@@ -1,0 +1,66 @@
+var canvas = {
+
+	dessiner() {
+	/*	
+		var el = document.getElementById('c');
+		var ctx = el.getContext('2d');
+		var isDrawing;
+		
+		el.onmousedown = function(e) {
+		  isDrawing = true;
+		  detectCanvas = true;
+		  ctx.lineWidth = 1;
+		  ctx.lineJoin = ctx.lineCap = 'round';
+		  ctx.shadowBlur = 2;
+		  ctx.shadowColor = 'rgb(0, 0, 0)';
+		  
+		  
+		  ctx.moveTo(e.offsetX-90, e.offsetY);
+		};
+		el.onmousemove = function(e) {
+		  if (isDrawing) {
+		    ctx.lineTo(e.offsetX-90, e.offsetY);
+		    ctx.stroke();
+		  }
+		};
+		el.onmouseup = function() {
+		  isDrawing = false;
+		};
+			*/
+		var el = document.getElementById('c');
+		var ctx = el.getContext('2d');
+
+		ctx.lineWidth = 1;
+		ctx.lineJoin = ctx.lineCap = 'round';
+		ctx.shadowBlur = 2;
+		ctx.shadowColor = 'rgb(0, 0, 0)';
+		
+		var isDrawing, points = [ ];
+		
+		el.onmousedown = function(e) {
+		  isDrawing = true;
+		  points.push({ x: e.offsetX, y: e.offsetY });
+		};
+		
+		el.onmousemove = function(e) {
+			
+		  if (!isDrawing) return;
+		  detectCanvas = true;
+		  //ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+		  points.push({ x: e.offsetX, y: e.offsetY });
+		
+		  ctx.beginPath();
+		  ctx.moveTo(points[0].x, points[0].y);
+		  for (var i = 1; i < points.length; i++) {
+		    ctx.lineTo(points[i].x, points[i].y);
+		  }
+		  ctx.stroke();
+		};
+		
+		el.onmouseup = function() {
+		  isDrawing = false;
+		  points.length = 0;
+		};
+	}
+
+};

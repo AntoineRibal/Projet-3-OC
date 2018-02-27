@@ -1,0 +1,47 @@
+var diapoConstructor= {
+		
+		blocDiapoConstruct(source, texte) {
+			i++;
+			var newBlocDiapo = document.createElement('div');
+			newBlocDiapo.classList.add('diapo');
+			newBlocDiapo.id = 'diaporama' + i ;
+			tabI.push(i);
+			document.getElementById('diaporama').appendChild(newBlocDiapo);
+			console.log('coucou1');
+			
+			
+			var newImageDiapo = document.createElement('img');
+			newImageDiapo.classList.add('imageDiapo');
+			newImageDiapo.src = source;
+			newImageDiapo.alt = 'Diapositive reservation velo';
+			newBlocDiapo.appendChild(newImageDiapo);
+			console.log('coucou2');
+			
+			
+			var newParaDiapo = document.createElement('p');
+			newParaDiapo.classList.add('texteDiapo');
+			newParaDiapo.textContent = texte;
+			newBlocDiapo.appendChild(newParaDiapo);
+			console.log('coucou3');
+			
+			console.log(i);
+		}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};

@@ -1,0 +1,63 @@
+var diaporama = {
+	
+	constructor(){ 
+		var compteur = 1;
+
+		var diapo = document.getElementById('diaporama');
+		diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";
+		
+		var arrowLeft = document.createElement('img');
+		arrowLeft.src = "../image/arrowleft.png";
+		diapo.appendChild(arrowLeft);
+		arrowLeft.id = 'flecheGauche';
+		
+		var arrowRight = document.createElement('img');
+		arrowRight.src = "../image/arrowright.png";
+		diapo.appendChild(arrowRight);
+		arrowRight.id = 'flecheDroite';
+		
+		arrowLeft.addEventListener('click', function () {
+			
+			compteur = compteur - 1 ;
+			//console.log(compteur);
+			if (compteur <= 0) {
+				compteur = 3;			
+			}
+			
+			diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";
+		});
+		
+		arrowRight.addEventListener('click', function () {
+			compteur = compteur + 1 ;
+			if (compteur >= 4) {
+				compteur = 1;		
+			}
+			diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";
+	
+	
+		});
+		document.addEventListener('keypress', function (e) {
+			var touche = e.keyCode;
+			if (touche == 37) {
+				compteur = compteur - 1 ;
+				//console.log(compteur);
+				if (compteur <= 0) {
+					compteur = 3;			
+				}
+				diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";			
+			}		
+		
+		});
+		document.addEventListener('keypress', function (e) {
+			var touche = e.keyCode;
+			if (touche == 39) {
+			compteur = compteur + 1 ;
+			if (compteur >= 4) {
+				compteur = 1;		
+			}
+				diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";			
+			}		
+		
+		});
+	}	
+};

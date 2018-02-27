@@ -1,0 +1,177 @@
+/*RESET CSS */
+
+
+html, body, div, span, applet, object, iframe,
+ h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	background-color: black;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*FIN RESET CSS*/
+
+/*DEBUT DIAPORAMA*/
+#diaporama{
+	position: relative;
+	height: 600px;
+	background : no-repeat fixed;
+	background-color: white;
+	background-size: cover;
+	border: 3px black solid;
+}
+.diapo{
+
+	height: 599px;
+	background : no-repeat fixed;
+	background-size: cover;
+	background-color: #FDFE17;
+	z-index: 0;
+}
+#flecheDroite{
+	position: absolute;
+	right: 0%;
+	top:50%;
+	width: 75px;
+	height: 75px;
+	z-index: 1;
+}
+#flecheGauche{
+	top: 50%;
+	position : absolute;
+	width :75px;
+	height : 75px;
+	z-index: 1;
+}
+.imageDiapo{
+	height: 70%;
+	width: 70%;
+	left: 15%;
+	top: 10%;
+	position: absolute;
+	overflow: hidden;
+}
+.texteDiapo{
+	color: #FDFE17;
+	background-color: black;
+	top: 20%;
+	left: 20%;
+	padding: 10px;
+	position: absolute;
+	font-weight: bold;
+	font-size: 1.5em;
+	text-align: center;
+}
+/* FIN DIAPO */
+
+/*MAP*/
+#appMap{
+	float: left;
+	height: 700px;
+	width: 69%;
+	background-color: green;
+	border: 2px black solid;
+	border-right: none;
+}
+/* BLOC INFOS */
+span{
+	font-size: 0.7em;
+}
+.bouton{
+	font-size: 1.5em;
+	color: #FDFE17;
+	background-color: black;
+	border-color: #FDFE17;
+	border-width: 5px;
+	border-style: solid;
+	width: 100%;
+}
+#infos{
+	margin-left: 70%;
+	width: 29%;
+	position: relative;
+	background-color: #FDFE17;
+	border: 3px black solid;
+	height: 700px;
+	border-left: none;
+}
+#boutonReservation{
+	position: absolute;
+	margin: auto;
+
+	text-align: center;
+	bottom: 0%;
+	height: 190px;
+	width: 100%;
+}
+#validationResa{
+	border:none;
+	height: 100px;
+	margin-top: -5px;
+}
+#blocSignature{
+	position: absolute;
+	left: -5px;
+	margin: auto;
+	text-align: center;
+	bottom: 0%;
+	font-size: 1.5em;
+	background-color: #FDFE17;
+	border: 5px black solid;
+	width: 100%;
+	display: none;
+	border-top: none;
+}
+/* CANVAS */
+#c{	
+	margin: auto;
+	margin-top: 5px;
+	text-align: center;
+	background-color: #FDFE17;
+	border: 5px black solid;
+}
+/*FOOTER*/
+#footer{
+	position: relative;
+	height: 40px;
+	background-color: #FDFE17;
+	border: 5px #FDFE17 solid;
+	text-align: center;
+	margin:auto;
+}

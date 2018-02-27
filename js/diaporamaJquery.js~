@@ -1,0 +1,50 @@
+$(function() {
+	
+	//On viens faire disparaître les autres diapos
+	$('.diapo').hide();
+	$('#diaporama'+i).show();
+	//Creation de la fonction cache-cache des diapos	
+	
+	var indexDiapo = 0;
+	
+	function appDisp(index) {
+		$('.diapo').hide();
+		$('#diaporama' + i).show();
+		
+	}	
+	//Ajout Listener sur la flèche gauche
+	$('#flecheGauche').on('click', function () {
+		i--;
+		if (i == 0) {i = tabI.length;}
+		console.log(i);
+		appDisp(i);
+	});
+	//Ajout Listener sur la flèche droite
+	$('#flecheDroite').on('click', function () {
+		i++;
+		if (i == tabI.length+1) {i = 1;}
+		console.log(i);
+		appDisp(i);
+	});
+	//Ajout Listener sur la flèche gauche
+	document.addEventListener('keypress', function (e) {
+			var touche = e.keyCode;
+			if (touche == 37) {
+				i--;
+				if (i == 0) {i = tabI.length;} 
+				console.log(i);
+				appDisp(i);		
+			}		
+	});
+	//Ajout Listener sur la flèche droite
+	document.addEventListener('keypress', function (e) {
+		var touche = e.keyCode;
+		if (touche == 39) {
+			i++;
+			if (i == tabI.length+1) {i = 1;}
+			console.log(i);
+			appDisp(i);	
+			
+		}		
+	});
+});

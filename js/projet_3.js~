@@ -1,0 +1,162 @@
+
+//cle API openData paris : 6dc016ce9bd56626f13fc42b85bd2e061701e3d9
+// &apiKey={api_key}
+//&apiKey={6dc016ce9bd56626f13fc42b85bd2e061701e3d9}
+var infos = document.getElementById('blocInfos');
+var map;
+var compteurclick = 0;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('appMap'), {
+    center: {lat: 48.866667, lng: 2.333333},
+    zoom: 12
+  });
+  
+google.maps.event.addListener(map, 'click', function (event) {
+    new google.maps.Marker({
+	map: map,
+	position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+    });
+});
+}
+
+var diaporama = {
+	
+	constructor(){ 
+		var compteur = 1;
+
+		var diapo = document.getElementById('diaporama');
+		diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";
+		
+		var arrowLeft = document.createElement('img');
+		arrowLeft.src = "../image/arrowleft.png";
+		diapo.appendChild(arrowLeft);
+		arrowLeft.id = 'flecheGauche';
+		
+		var arrowRight = document.createElement('img');
+		arrowRight.src = "../image/arrowright.png";
+		diapo.appendChild(arrowRight);
+		arrowRight.id = 'flecheDroite';
+		
+		arrowLeft.addEventListener('click', function () {
+			
+			compteur = compteur - 1 ;
+			//console.log(compteur);
+			if (compteur <= 0) {
+				compteur = 3;			
+			}
+			
+			diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";
+		});
+		
+		arrowRight.addEventListener('click', function () {
+			compteur = compteur + 1 ;
+			if (compteur >= 4) {
+				compteur = 1;		
+			}
+			diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";
+	
+	
+		});
+		document.addEventListener('keypress', function (e) {
+			var touche = e.keyCode;
+			if (touche == 37) {
+				compteur = compteur - 1 ;
+				//console.log(compteur);
+				if (compteur <= 0) {
+					compteur = 3;			
+				}
+				diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";			
+			}		
+		
+		});
+		document.addEventListener('keypress', function (e) {
+			var touche = e.keyCode;
+			if (touche == 39) {
+			compteur = compteur + 1 ;
+			if (compteur >= 4) {
+				compteur = 1;		
+			}
+				diapo.style.backgroundImage = "url('../image/Diapo_" + compteur + ".png')";			
+			}		
+		
+		});
+	}	
+};
+
+
+
+
+diaporama.constructor();
+
+var application = {
+
+	marqueur(){
+		console.log('coucou');
+		ajaxGet("https://opendata.paris.fr/api/records/1.0/search/?dataset=stations-velib-disponibilites-en-temps-reel&lang=fr&rows=-1&sort=-number&facet=banking&facet=bonus&facet=status&facet=contract_name&facet=position", function (reponse) {
+			console.log("Au moins ca, ca fonctionne ...");
+			var retour = JSON.parse(reponse);
+			console.log('coucou2');
+			console.log(retour);
+			//console.log(retour.records[1].fields.address);
+			
+			
+			for (var num in retour.records) {
+				//console.log(retour.records[num].fields.address);
+				
+			   var marqueur= new google.maps.Marker({
+					map: map,
+					position: new google.maps.LatLng(retour.records[num].geometry.coordinates[1], retour.records[num].geometry.coordinates[0])
+			    });
+			    marqueur.id = 'idMarqueur' + num;
+			    marqueur.adresse = retour.records[num].fields.address;
+			    marqueur.veloDispo = retour.records[num].fields.available_bikes;
+			    marqueur.emplacementVelo = retour.records[num].fields.available_bike_stands;
+			    marqueur.etat = retour.records[num].fields.status;
+			    marqueur.setMap(map);
+			   // console.log(marqueur);
+			    
+				marqueur.addListener('click', function () {
+					console.log(this.adresse);
+					document.getElementById('apparitionAdresse').textContent = this.adresse;
+					document.getElementById('apparitionVeloDispo').textContent = this.veloDispo;
+					document.getElementById('apparitionEtat').textContent = this.etat;
+					document.getElementById('apparitionEmpDispo').textContent = this.emplacementVelo;
+					
+					compteurclick = 1;
+				});
+			}
+		});
+	},  
+	
+	blocInfosConstruct(type,contenu,cible,id){
+		console.log('creation du bloc d\'information');
+		
+		var newElement = document.createElement(type);
+		newElement.textContent = contenu;
+		newElement.id = id;
+		document.getElementById(cible).appendChild(newElement);
+	}
+	
+};
+
+application.blocInfosConstruct('h1','Informations ','infos');
+
+application.blocInfosConstruct('h2','Etat de la station: ','infos','infosVeloEtat');
+application.blocInfosConstruct('span','','infosVeloEtat','apparitionEtat' );
+
+application.blocInfosConstruct('h2','Adresse: ','infos','infosAdresse');
+application.blocInfosConstruct('span','','infosAdresse','apparitionAdresse' );
+
+application.blocInfosConstruct('h2','Vélo disponible: ','infos','infosVeloDispo');
+application.blocInfosConstruct('span','','infosVeloDispo','apparitionVeloDispo' );
+
+application.blocInfosConstruct('h2','Emplacement disponible: ','infos','infosVeloStand');
+application.blocInfosConstruct('span','','infosVeloStand','apparitionEmpDispo' );
+
+
+application.marqueur();
+
+
+
+
+
